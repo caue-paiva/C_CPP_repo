@@ -124,6 +124,21 @@ so that they can be directly acessed (. or -> operators) from many different .c 
 
     #define config (struct  code_config){.config1=3,.config2=5,.config3=9}
 
+
+    //lookup tables
+    
+
+
+    //keys[key] need to be an unsigned int or a char
+
+    // values assigned to keys need to be of the type of the declared array, in this case int
+    const int command_num_lookup[] = {
+        ['a'] = 1,
+        ['s'] = 2,
+        ['d'] = 3,
+        ['m'] = 4
+    };
+
   
 
 #endif
