@@ -16,17 +16,19 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     #include <fcntl.h>
     #include <string.h>
      
-    //macros
+    //macros below: 
 
     //assert macros to assert 2,3 pointers to not be null at once, still retains info on what pointer failed the assert
     #define assert_2ptrs(p1,p2) assert(p1); assert(p2);
     #define assert_3ptrs(p1,p2,p3) assert_2ptrs(p1,p2); assert(p3);
 
-    //simple max macro
+    //simple max and min macro
     #define max(x, y)  ((x) > (y) ? (x) : (y))
 
+    #define min(x, y)  ((x) > (y) ? (y) : (x))
+
     //frees a pointer and sets it to NULL
-    #define null_free(ptr) \
+    #define safe_free(ptr) \
       free(ptr);            \
       ptr = NULL
     
@@ -55,7 +57,21 @@ so that they can be directly acessed (. or -> operators) from many different .c 
             printf("\n")
     #else    //does not print anything
         #define d_printf(...) (void)0
-    #endif                               
+    #endif  
+
+
+    //generic func pointer macro
+    #define fn_ptr(name,return_type,...)  return_type (*name)(__VA_ARGS__)      
+    //use like this:  fn_ptr(name , return_arg , args1 ....) = func_name;
+
+
+    //generates a function ptr type to an specific function
+    #define fn_ptr_t(name,return_type,...)  \
+    typedef return_type (*name)(__VA_ARGS__)
+    //good for reusability , use like this: 
+    //    fn_ptr_t(add_t,int,int,int);
+    //    add_t add_ptr = add;
+                    
     
 
 
@@ -77,5 +93,25 @@ so that they can be directly acessed (. or -> operators) from many different .c 
         conexao_t tipo_conexao;
         grafo_t** conexoes;
     };
+
+
+    typedef struct {
+        const int max1;
+        const int max2;
+    } PARAM;
+
+
+
+    //this pattern creates a struct with const values and then defines a macro variable that is a struct compound literal with some values
+    //useful for centralizing macro constants in a struct for code config
+    struct code_config {
+        const int config1;
+        const int config2;
+        const int config3;
+    };
+
+    #define config (struct  code_config){.config1=3,.config2=5,.config3=9}
+
+  
 
 #endif
