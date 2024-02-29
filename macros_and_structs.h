@@ -18,6 +18,13 @@ so that they can be directly acessed (. or -> operators) from many different .c 
      
     //macros below: 
 
+    /*
+    OBS: the do {...}  while(0)  macro pattern is useful for executing statements in multiple lines
+    it can create macros safe and more robust to use inside if() and while() statements.
+    
+    
+    */
+
     //assert macros to assert 2,3 pointers to not be null at once, still retains info on what pointer failed the assert
     #define assert_2ptrs(p1,p2) assert(p1); assert(p2);
     #define assert_3ptrs(p1,p2,p3) assert_2ptrs(p1,p2); assert(p3);
@@ -27,19 +34,24 @@ so that they can be directly acessed (. or -> operators) from many different .c 
 
     #define min(x, y)  ((x) > (y) ? (y) : (x))
 
-    //frees a pointer and sets it to NULL
-    #define safe_free(ptr) \
-      free(ptr);            \
+    //frees the pointer pointed by the double pointer and sets it to NULL, this CAN be used on a ptr passed to a func
+    #define safe_free_double(double_ptr)\
+      free(*double_ptr);\
+      *double_ptr = NULL
+    
+    //frees a pointer and sets it to NULL, this CANT be used on a ptr passed to a func
+    #define safe_free(ptr)\
+      free(ptr);\
       ptr = NULL
     
 
     // if a function  returns -1, this raises an error and prints the errno messages, this is useful for stdlib functions that change
     // errno val
-    #define errno_check(X) do {                                          \
-        if ((X) == -1) {                                                  \
+    #define errno_check(X) do {\
+        if ((X) == -1) {\
             printf("ERROR: (FILE: %s , LINE: %d) -- %s \n",__FILE__,__LINE__, strerror(errno));\
-            exit(-1);                                                       \
-        }                                                                    \
+            exit(-1);\
+        }\
         } while (0)
         //strerror comes from string.h and prints the messages from the errno error
 
@@ -51,9 +63,9 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     // debug macros
     #define DEBUG 1 //debug or not flag
     #if DEBUG //printf with more debug info
-        #define d_printf(...)                                             \
-            printf("[DEBUG] (FILE: %s , LINE: %d) -- ",__FILE__,__LINE__); \
-            printf(__VA_ARGS__);                                            \
+        #define d_printf(...)\
+            printf("[DEBUG] (FILE: %s , LINE: %d) -- ",__FILE__,__LINE__);\
+            printf(__VA_ARGS__);\
             printf("\n")
     #else    //does not print anything
         #define d_printf(...) (void)0
@@ -66,7 +78,7 @@ so that they can be directly acessed (. or -> operators) from many different .c 
 
 
     //generates a function ptr type to an specific function
-    #define fn_ptr_t(name,return_type,...)  \
+    #define fn_ptr_t(name,return_type,...)\
     typedef return_type (*name)(__VA_ARGS__)
     //good for reusability , use like this: 
     //    fn_ptr_t(add_t,int,int,int);
