@@ -35,16 +35,17 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     #define min(x, y)  ((x) > (y) ? (y) : (x))
 
     //frees the pointer pointed by the double pointer and sets it to NULL, this CAN be used on a ptr passed to a func
-    #define safe_free_double(double_ptr)\
-      free(*double_ptr);\
-      *double_ptr = NULL
+    #define safe_free_double(double_ptr) do {\
+      free(*(double_ptr));\
+      *(double_ptr) = NULL;\
+    } while(0)
     
     //frees a pointer and sets it to NULL, this CANT be used on a ptr passed to a func
-    #define safe_free(ptr)\
-      free(ptr);\
-      ptr = NULL
+    #define safe_free(ptr) do {\
+      free((ptr));\
+      (ptr) = NULL;\
+    } while(0)
     
-
     // if a function  returns -1, this raises an error and prints the errno messages, this is useful for stdlib functions that change
     // errno val
     #define errno_check(X) do {\
@@ -57,26 +58,28 @@ so that they can be directly acessed (. or -> operators) from many different .c 
 
 
     //nullptr and errno check macro
-    #define null_errno_check(ptr) do{\
-        void* _ptr = (ptr);\
-        if((_ptr) == NULL){\
+    #define null_errno_check(ptr) do {\
+        void* __null_errno_ptr = (ptr);\
+        if((__null_errno_ptr) == NULL){\
            printf("NULL PTR ERROR: (FILE: %s , LINE: %d) -- errno: %s \n",__FILE__,__LINE__, strerror(errno));\
+           exit(1);\
         }\
     } while(0)
-    //used to check for null ptrs and displaying errno messages, useful for file opening code
+    //used to check for null ptrs and displaying errno messages, useful for file opening routines
 
 
     //get the size of an array
-    #define arr_size(arr) (sizeof(arr) / sizeof((arr)[0]))
+    #define arr_size(arr) (sizeof( (arr) ) / sizeof((arr)[0]))
 
 
     // debug macros
     #define DEBUG 1 //debug or not flag
     #if DEBUG //printf with more debug info
-        #define d_printf(...)\
+        #define d_printf(...) do {\
             printf("[DEBUG] (FILE: %s , LINE: %d) -- ",__FILE__,__LINE__);\
             printf(__VA_ARGS__);\
-            printf("\n")
+            printf("\n");\
+        } while(0)
     #else    //does not print anything
         #define d_printf(...) (void)0
     #endif  
@@ -88,14 +91,12 @@ so that they can be directly acessed (. or -> operators) from many different .c 
 
 
     //defines a function ptr type to an specific function signature (return and arg types)
-    #define fn_ptr_t(name,return_type,...)  \
-    typedef return_type (*name)(__VA_ARGS__)
+    #define fn_ptr_t(name,return_type,...) typedef return_type (*name)(__VA_ARGS__)
     //good for reusability , use like this: 
     //    fn_ptr_t(add_t,int,int,int);
     //    add_t add_ptr = add;
                     
     
-
 
 
     // Very cool thing, if you declare a typedef for an struct or enum and name it varname_t it will be highlighted green on VScode
@@ -146,6 +147,20 @@ so that they can be directly acessed (. or -> operators) from many different .c 
         ['d'] = 3,
         ['m'] = 4
     };
+
+    // this is a bitfield struct and the int after the : signifies how many bits does each area of the struct hold
+    struct bitfield {
+        int area1 : 4;
+        int area2 : 4;
+        int area3 : 1;
+        int area4 : 7;
+    };
+
+    // if you use functions like read() to read bits from a file, the contents of the read size are
+    // parsed automatically to this bitfield struct, useful for FILE reading, or Network communication
+    // other functions like write() to file also work with this
+
+    typedef struct bitfield bitfield_t;
 
   
 
