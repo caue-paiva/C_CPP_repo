@@ -50,10 +50,20 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     #define errno_check(X) do {\
         if ((X) == -1) {\
             printf("ERROR: (FILE: %s , LINE: %d) -- %s \n",__FILE__,__LINE__, strerror(errno));\
-            exit(-1);\
+            exit(1);\
         }\
         } while (0)
         //strerror comes from string.h and prints the messages from the errno error
+
+
+    //nullptr and errno check macro
+    #define null_errno_check(ptr) do{\
+        void* _ptr = (ptr);\
+        if((_ptr) == NULL){\
+           printf("NULL PTR ERROR: (FILE: %s , LINE: %d) -- errno: %s \n",__FILE__,__LINE__, strerror(errno));\
+        }\
+    } while(0)
+    //used to check for null ptrs and displaying errno messages, useful for file opening code
 
 
     //get the size of an array
