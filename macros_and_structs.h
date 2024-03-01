@@ -65,7 +65,7 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     //use like this:  fn_ptr(name , return_arg , args1 ....) = func_name;
 
 
-    //generates a function ptr type to an specific function
+    //defines a function ptr type to an specific function signature (return and arg types)
     #define fn_ptr_t(name,return_type,...)  \
     typedef return_type (*name)(__VA_ARGS__)
     //good for reusability , use like this: 
@@ -99,8 +99,6 @@ so that they can be directly acessed (. or -> operators) from many different .c 
         const int max1;
         const int max2;
     } PARAM;
-
-
 
     //this pattern creates a struct with const values and then defines a macro variable that is a struct compound literal with some values
     //useful for centralizing macro constants in a struct for code config
