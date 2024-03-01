@@ -4,11 +4,7 @@
 //naming them with __ also signifies its an internal func
 
 
-static const grafo_t graph_lookup[] = {
-   ['a'] = grafo_t grafo1,
-   ['b'] = grafo_t grafo2,
-   ['c'] = grafo_t grafo3
-};
+
 
 static bool __func() {
    return false;
@@ -90,8 +86,15 @@ int main(){
    //fn_ptr(int*,int*,int*) add1 = ptr_add;
    //fn_ptr(int,int,int*) add1 = mixed_add;
 
-  // printf("%d \n",add_ptr(a,b)  );
+   // printf("%d \n",add_ptr(a,b)  );
 
-  printf("%d \n",command_num_lookup['a']);
+
+   int open_data_file_flag = open("ahahah", O_APPEND);
+
+
+   errno_check(open_data_file_flag);
+   
+
+   //printf("%d \n",command_num_lookup['a']);
 
 }

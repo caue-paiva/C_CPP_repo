@@ -50,7 +50,7 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     // errno val
     #define errno_check(X) do {\
         if ((X) == -1) {\
-            printf("ERROR: (FILE: %s , LINE: %d) -- %s \n",__FILE__,__LINE__, strerror(errno));\
+            printf("ERROR: (VAR NAME: %s , FILE: %s , LINE: %d) -- Error name: %s \n", #X ,__FILE__,__LINE__, strerror(errno));\
             exit(1);\
         }\
         } while (0)
@@ -61,7 +61,7 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     #define null_errno_check(ptr) do {\
         void* __null_errno_ptr = (ptr);\
         if((__null_errno_ptr) == NULL){\
-           printf("NULL PTR ERROR: (FILE: %s , LINE: %d) -- errno: %s \n",__FILE__,__LINE__, strerror(errno));\
+           printf("NULL PTR ERROR: (VAR NAME: %s , FILE: %s , LINE: %d) -- Error name: %s \n", #ptr ,__FILE__,__LINE__, strerror(errno));\
            exit(1);\
         }\
     } while(0)
@@ -97,7 +97,6 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     //    add_t add_ptr = add;
                     
     
-
 
     // Very cool thing, if you declare a typedef for an struct or enum and name it varname_t it will be highlighted green on VScode
     typedef struct grafo grafo_t;
@@ -145,7 +144,7 @@ so that they can be directly acessed (. or -> operators) from many different .c 
         ['a'] = 1,
         ['s'] = 2,
         ['d'] = 3,
-        ['m'] = 4
+        ['m'] = 4,
     };
 
     // this is a bitfield struct and the int after the : signifies how many bits does each area of the struct hold
@@ -160,7 +159,7 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     // parsed automatically to this bitfield struct, useful for FILE reading, or Network communication
     // other functions like write() to file also work with this
 
-    typedef struct bitfield bitfield_t;
+   // typedef struct bitfield bitfield_t;
 
   
 
