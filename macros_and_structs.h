@@ -85,6 +85,12 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     #endif  
 
 
+    //ATTENTION: warning arg needs to be a string
+    #define warn_printf(warning) printf("[WARNING] %s (FILE: %s , LINE: %d) -- \n", (warning) ,__FILE__,__LINE__);\
+  
+    
+
+
     //generic func pointer macro
     #define fn_ptr(name,return_type,...)  return_type (*name)(__VA_ARGS__)      
     //use like this:  fn_ptr(name , return_arg , args1 ....) = func_name;
