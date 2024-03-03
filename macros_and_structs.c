@@ -81,18 +81,21 @@ int main(){
    int a = 4;
    int b = 7;
 
-   fn_ptr_t(add_t,int,int,int);
-   add_t add_ptr = add;
+   //fn_ptr_t(add_t,int,int,int);
+   //add_t add_ptr = add;
    //fn_ptr(int*,int*,int*) add1 = ptr_add;
    //fn_ptr(int,int,int*) add1 = mixed_add;
 
    // printf("%d \n",add_ptr(a,b)  );
 
 
-   int open_data_file_flag = open("ahahah", O_APPEND);
+   //int open_data_file_flag = open("ahahah", O_APPEND);
+   if (0)
+    d_printf("var1 %d ptr1 %p", a, &b);
+   else
+     printf();
 
-
-   errno_check(open_data_file_flag);
+  // errno_check(open_data_file_flag);
    
 
    //printf("%d \n",command_num_lookup['a']);

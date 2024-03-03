@@ -84,6 +84,10 @@ so that they can be directly acessed (. or -> operators) from many different .c 
         #define d_printf(...) (void)0
     #endif  
 
+    //single line debug printf macro, its reliant on a GCC ##__VA_ARGS__ variable so it might be less portable, it can also work if d_printf is called with no args
+    //#define d_printf2(format, ...) printf("[DEBUG] (FILE: %s , LINE: %d) -- " format "\n", __FILE__, __LINE__, ##__VA_ARGS__)
+
+
 
     //ATTENTION: warning arg needs to be a string
     #define warn_printf(warning) printf("[WARNING] %s (FILE: %s , LINE: %d) -- \n", (warning) ,__FILE__,__LINE__);\
