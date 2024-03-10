@@ -81,6 +81,8 @@ int main(){
    int a = 4;
    int b = 7;
 
+   (int) (*fn_ptr) (int,int*) = mixed_add;
+
    //fn_ptr_t(add_t,int,int,int);
    //add_t add_ptr = add;
    //fn_ptr(int*,int*,int*) add1 = ptr_add;
