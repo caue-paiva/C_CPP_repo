@@ -65,6 +65,12 @@ so that they can be directly acessed (. or -> operators) from many different .c 
            exit(1);\
         }\
     } while(0)
+
+    #define err_exit(...) do {\
+            printf("[ERROR] (FILE: %s , LINE: %d) -- ",__FILE__,__LINE__);\
+            printf(__VA_ARGS__);\
+            printf("\n");\
+    } while(0)
     //used to check for null ptrs and displaying errno messages, useful for file opening routines
 
 

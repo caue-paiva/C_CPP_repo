@@ -3,10 +3,12 @@
    #include <stdlib.h>
    #include <stdio.h>
    #include <stdbool.h>
+   
    #include <assert.h>
    #include <string.h>
    #include <errno.h>
 
+   typedef unsigned int uint;
 
    #define FILE_NAME_SIZE 256
    #define FILE_TYPE_SIZE 6 //. + 5 other chars 

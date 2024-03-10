@@ -13,7 +13,7 @@ static bool __func() {
 bool const_ptr_exp(){
    int a = 1;
 
-   const int * pA = &a;  //this means that the DATA POINTED TO cant be changed
+   const int* pA = &a;  //this means that the DATA POINTED TO cant be changed
 
    int* const pA2 = &a;  // this means that the memory adress of the pA2 variable cant be changed, but the data it 
    // points to can be
@@ -63,11 +63,11 @@ int add (int a, int b) {
     return a + b;
 }
 
-int* ptr_add(int* a, int*b){
+int* ptr_add(int* a, int*b, int c){
    int * ptr =  (int*) malloc(sizeof(int));
 
    *ptr = (*a) + (*b);
-
+   
    return ptr;
 }
 
@@ -93,7 +93,9 @@ int main(){
    if (0)
     d_printf("var1 %d ptr1 %p", a, &b);
    else
-     printf();
+     printf("");
+
+
 
   // errno_check(open_data_file_flag);
    
