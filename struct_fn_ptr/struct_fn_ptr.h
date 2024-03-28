@@ -87,12 +87,21 @@
       char name[FILE_NAME_SIZE+1]; //+1 for null terminator
       char type[FILE_TYPE_SIZE+1];
       char mode;
-      /// add other fields for more info 
-
+      //the comments above struct fn ptrs are to indicate the name of each param, bc intellisense doesnt show them
+      
+      //file_t* file  
       uint (*get_file_size)(struct file_s*);    
+     
+      //file_t* self_source, file_t* other_dest
       bool (*append_to_other)(struct file_s*, struct file_s*);
+     
+      //file_t* other_source, file_t* self_destination
       bool (*append_to_self)(struct file_s*, struct file_s*);   
-      bool (*copy_to_other)(struct file_s*, struct file_s*);
+     
+      //file_t* self_source, file_t* other_dest
+      bool (*copy_to_other)(struct file_s *, struct file_s*);
+     
+      //file_t* other_source, file_t* self_destination
       bool (*copy_to_self)(struct file_s*, struct file_s*);
    };
    typedef struct file_s file_t;

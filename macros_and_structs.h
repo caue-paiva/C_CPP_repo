@@ -73,11 +73,6 @@ so that they can be directly acessed (. or -> operators) from many different .c 
     } while(0)
     //used to check for null ptrs and displaying errno messages, useful for file opening routines
 
-
-    //get the size of an array
-    #define arr_size(arr) (sizeof( (arr) ) / sizeof((arr)[0]))
-
-
     // debug macros
     #define DEBUG 1 //debug or not flag
     #if DEBUG //printf with more debug info

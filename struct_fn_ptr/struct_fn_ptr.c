@@ -256,7 +256,8 @@ int main(){
   file_t* file2 = create_file_struct("test2.txt", 'w');
 
   //printf( "%d \n",file1->fn.r.get_file_size(file1) );
-  //file1->copy_to_other(file1,file2);
+  file1->copy_to_other(file1,file2);
+  
 
 
   //printf("%c \n",file1->mode);
